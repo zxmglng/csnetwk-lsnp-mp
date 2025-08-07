@@ -1,11 +1,9 @@
-# commands/auto_ping.py
-
 import time
 import config
 from views.message import Message
 from models.collections import my_profile
 
-PING_INTERVAL = 10
+PING_INTERVAL = 300
 
 def _send_ping():
     from udp_socket import UDPSocket

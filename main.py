@@ -2,14 +2,16 @@ from udp_socket import UDPSocket
 from command_router import send
 import config
 from commands.ping import auto_ping_loop
+from models.collections.peers import Peers 
 import threading
-
+    
 def main():
     
     config.USERNAME = input("Enter your username: ").strip()
     send("profile", [])
     
     threading.Thread(target=auto_ping_loop, daemon=True).start()
+    threading.Thread(target=Peers().start_auto_cleanup, daemon=True).start()
     
     udp = UDPSocket()
     udp.receive_loop()

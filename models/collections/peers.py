@@ -1,4 +1,4 @@
-import asyncio
+import time
 from typing import List
 from datetime import datetime, timedelta, timezone
 from models.dataclasses.peer import Peer
@@ -39,8 +39,8 @@ class Peers:
         now = datetime.now(timezone.utc)
         self.peers = [p for p in self.peers if now - p.created_at < self.TTL]
 
-    async def start_auto_cleanup(self, interval_seconds: int = 10):
+    def start_auto_cleanup(self, interval_seconds: int = 10):
         while True:
-            self.remove_expried_peers()
-            await asyncio.sleep(interval_seconds)        
+            self.remove_expired_peers()
+            time.sleep(interval_seconds)
             
