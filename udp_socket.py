@@ -20,7 +20,7 @@ class UDPSocket:
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.socket.bind((config.CURRENT_IP, config.PORT))
+        self.socket.bind(("0.0.0.0", config.PORT))
 
         self.encoding = config.ENCODING
         self.running = True
