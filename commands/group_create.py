@@ -22,8 +22,13 @@ def run(args: list[str]):
     groups_collection = Groups()
     group_id = f"{group_name}_{uuid.uuid4().hex[:5]}"
     
+    profile = my_profile.get_profile()
+    if not profile:
+        return
+        
     peers_collection = Peers()
-    members = []
+    members = [profile]
+    
     for user_id in user_ids:
         peer = peers_collection.get_peer(user_id)
         if peer:
@@ -36,16 +41,12 @@ def run(args: list[str]):
 
     if groups_collection.add_group(new_group):
         print(f"[GROUP CREATED] {group_name} with ID {group_id} and members: {[p.USER_ID for p in members]}")
-
-        profile = my_profile.get_profile()
-        if not profile:
-            return
         
         timestamp = int(time.time())
         token_ttl = timestamp + 3600
         token = f"{profile.USER_ID}|{token_ttl}|group"
     
-        members_str = user_ids_str
+        members_str = ",".join(peer.USER_ID for peer in members)
 
         message_dict = {
             "TYPE": "GROUP_CREATE",
