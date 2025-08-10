@@ -8,7 +8,6 @@ def run(data: dict, sender_address: tuple):
         return  
     
     peer = Peers().get_peer(from_id)
-    display_name = peer.DISPLAY_NAME if peer else from_id
     
     if Followers().remove_follower(from_id):
-        print(f"User {display_name} has unfollowed you")
+        print(f"User {peer.DISPLAY_NAME} has unfollowed you")

@@ -1,5 +1,5 @@
 from views.message import Message
-from handlers import profile, ping, dm, follow
+from handlers import profile, ping, dm, follow, unfollow
 
 class HandleMessage:
     def __init__(self):
@@ -7,7 +7,8 @@ class HandleMessage:
             "PROFILE": profile.run,  
             "PING": ping.run,
             "DM": dm.run,
-            "FOLLOW": follow.run
+            "FOLLOW": follow.run,
+            "UNFOLLOW": unfollow.run
         }
 
     def run(self, message: str, sender_address: tuple):
