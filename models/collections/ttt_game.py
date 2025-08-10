@@ -1,14 +1,14 @@
 games = {}  # key: GAMEID
 
-def create_game(game_id, player_x, player_o, symbol, first_turn):
+def create_game(game_id, player_x, player_o):
     games[game_id] = {
         "board": [" "] * 9,
         "player_x": player_x,
         "player_o": player_o,
-        "symbol": symbol,  # symbol of inviter
-        "turn": first_turn,  # 'X' or 'O'
-        "winner": None
+        "status": "IN_PROGRESS",
+        "turn": "X"  # X always starts
     }
+
 
 def make_move(game_id, position, symbol):
     game = games.get(game_id)

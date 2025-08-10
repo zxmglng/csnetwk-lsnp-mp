@@ -45,7 +45,7 @@ def run(args):
 
     winner, winning_line = check_winner(game_id)
     if winner:
-        result = "DRAW" if winner == "DRAW" else ("WIN" if symbol == winner else "LOSS")
+        result = "DRAW" if winner == "DRAW" else ("WIN" if my_symbol == winner else "LOSS")
         print(f"Game Over! Result: {result}")
         if winning_line:
             print(f"Winning line: {winning_line}")

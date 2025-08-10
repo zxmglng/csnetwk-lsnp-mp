@@ -18,12 +18,10 @@ def run(args):
         print("Symbol must be X or O")
         return
 
-    other_symbol = "O" if symbol == "X" else "X"
     game_id = f"g{len(ttt_game.games) % 256}"
     ttt_game.create_game(game_id,
                         player_x=config.USERNAME if symbol == "X" else to_user,
-                        player_o=config.USERNAME if symbol == "O" else to_user,
-                        turn=symbol)
+                        player_o=config.USERNAME if symbol == "O" else to_user)
 
     message = (
         f"TYPE: TICTACTOE_INVITE\n"
