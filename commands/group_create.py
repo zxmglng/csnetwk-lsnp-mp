@@ -9,6 +9,10 @@ from models.dataclasses.group import Group
 
 def run(args: list[str]):
     if len(args) < 2:
+        peers = Peers().all()
+        peer_ids = [peer.USER_ID for peer in peers]
+        print("Available peers:", peer_ids)
+        print("Usage: group_create <group_name> <member_user_ids_comma_separated>")
         return
     
     group_name = args[0]
