@@ -1,11 +1,12 @@
 from views.message import Message
-from handlers import profile, ping  
+from handlers import profile, ping, dm  
 
 class HandleMessage:
     def __init__(self):
         self.type_router = {
             "PROFILE": profile.run,  
-            "PING": ping.run
+            "PING": ping.run,
+            "DM": dm.run
         }
 
     def run(self, message: str, sender_address: tuple):

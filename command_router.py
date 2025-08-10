@@ -1,7 +1,8 @@
-from commands import profile
+from commands import profile, dm
 
 COMMANDS = {
-    "profile": profile.run
+    "profile": profile.run,
+    "dm": dm.run
 }
 
 def send(command: str, args: list[str]):

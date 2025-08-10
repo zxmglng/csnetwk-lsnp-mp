@@ -12,6 +12,7 @@ class Peer:
     AVATAR_TYPE: Optional[str] = None
     AVATAR_ENCODING: Optional[str] = None
     AVATAR_DATA: Optional[str] = None
+    IP: Optional[str] = None
     
     def to_message_dict(self):
         return {

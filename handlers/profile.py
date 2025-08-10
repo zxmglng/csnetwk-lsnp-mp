@@ -8,7 +8,8 @@ def run(data: dict, sender_address: tuple):
         STATUS = data.get("STATUS", ""),
         AVATAR_TYPE = data.get("AVATAR_TYPE"),
         AVATAR_ENCODING = data.get("AVATAR_ENCODING"),
-        AVATAR_DATA = data.get("AVATAR_DATA")
+        AVATAR_DATA = data.get("AVATAR_DATA"),
+        IP = sender_address[0]
     )
 
     added = Peers().add_peer(peer)
