@@ -12,8 +12,11 @@ def run(args: list[str]):
     peers_collection = Peers()
 
     if len(args) < 3:
-        group_ids = [group.GROUP_ID for group in groups_collection.all()]
-        print("Available group IDs:", group_ids)
+        groups = groups_collection.all()
+        print("Available groups and their members:")
+        for group in groups:
+            member_ids = [member.USER_ID for member in group.MEMBERS]
+            print(f"Group ID: {group.GROUP_ID}, Members: {member_ids}")
 
         peer_ids = [peer.USER_ID for peer in peers_collection.all()]
         print("Available peers:", peer_ids)
