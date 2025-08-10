@@ -18,5 +18,5 @@ def handle(data: dict, sender_address: tuple):
         player_o=from_user if symbol == "O" else profile.USER_ID
     )
     vprint("RECV", f"Tic Tac Toe invite from {from_user} — you are {my_symbol}", sender_ip=sender_address[0], msg_type="TICTACTOE_INVITE") # Added sender_ip
-    print(f"{from_user} invites you to play Tic Tac Toe. You are {my_symbol}.")
+    print(f"{from_user} invites you to play Tic Tac Toe. You are {my_symbol}. GAMEID: {game_id}")
     print_board([" "] * 9)
