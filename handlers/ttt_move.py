@@ -3,10 +3,10 @@ from models.collections.ttt_game import check_winner
 from views.tictactoe import print_board
 from verbose import vprint
 
-def handle(message):
-    game_id = message.get("GAMEID")
-    position = message.get("POSITION")
-    symbol = message.get("SYMBOL")
+def handle(data: dict):
+    game_id = data.get("GAMEID")
+    position = data.get("POSITION")
+    symbol = data.get("SYMBOL")
 
     try:
         position = int(position)
@@ -24,7 +24,7 @@ def handle(message):
         return
 
     if ttt_game.make_move(game_id, position, symbol):
-        vprint("RECV", f"Move from {message.get('FROM')} — position {position}", msg_type="TICTACTOE_MOVE")
+        vprint("RECV", f"Move from {data.get('FROM')} — position {position}", msg_type="TICTACTOE_MOVE")
         print_board(game["board"])
 
         winner, line = check_winner(game_id)
