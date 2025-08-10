@@ -29,7 +29,7 @@ def run(args: list[str]):
     if not members:
         return  
     
-    new_group = Group(GROUP_ID=group_id, NAME=group_name, members=members)
+    new_group = Group(GROUP_ID=group_id, GROUP_NAME=group_name, MEMBERS=members)
 
     if groups_collection.add_group(new_group):
         print(f"[GROUP CREATED] {group_name} with ID {group_id} and members: {[p.USER_ID for p in members]}")

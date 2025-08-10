@@ -26,10 +26,10 @@ def run(data: dict, sender_address: tuple):
     groups_collection = Groups()
     existing_group = groups_collection.get_group(group_id)
     if existing_group:
-        return  # already have this group
+        return  
     
-    new_group = Group(GROUP_ID=group_id, NAME=group_name, MEMBERS=members)
+    new_group = Group(GROUP_ID=group_id, GROUP_NAME=group_name, MEMBERS=members)
     groups_collection.add_group(new_group)
     
-    print("You've been added to \"{group_named}\"")
+    print("You've been added to \"{group_name}\"")
  
