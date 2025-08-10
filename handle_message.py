@@ -1,17 +1,21 @@
 from views.message import Message
-from handlers import profile, ping, dm, follow, unfollow, group_create, group_message, post
+from handlers import profile, ping, dm, follow, unfollow, group_create, group_message, post, file_offer, file_chunk, file_received
+
 
 class HandleMessage:
     def __init__(self):
         self.type_router = {
-            "PROFILE": profile.run,  
+            "PROFILE": profile.run,
             "PING": ping.run,
             "DM": dm.run,
             "FOLLOW": follow.run,
             "UNFOLLOW": unfollow.run,
             "GROUP_CREATE": group_create.run,
             "GROUP_MESSAGE": group_message.run,
-            "POST": post.run
+            "POST": post.run,
+            "FILE_OFFER": file_offer.run,
+            "FILE_CHUNK": file_chunk.run,
+            "FILE_RECEIVED": file_received.run
         }
 
     def run(self, message: str, sender_address: tuple):
