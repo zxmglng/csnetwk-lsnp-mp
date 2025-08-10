@@ -1,7 +1,5 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Optional
-from datetime import datetime, timezone
-from config import MESSAGE_TERMINATOR
 
 @dataclass
 class Peer:
