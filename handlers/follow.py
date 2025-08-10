@@ -1,6 +1,26 @@
+from models.dataclasses.follower import Follower
+from models.collections.followers import Followers
+from models.collections.peers import Peers
+
+
 def run(data: dict, sender_address: tuple):
-    
     from_id = data.get("FROM", "")
-    content = data.get("CONTENT", "")
+    timestamp = data.get("TIMESTAMP", None)
+
+    if not from_id:
+        return  
     
-    print(f"[DM] from {from_id}: {content}")
+    ip = sender_address[0]
+    
+    follower = Follower(
+        FOLLOWER_ID=from_id,
+        TIMESTAMP=timestamp,
+        IP=ip
+    )
+    
+    peer = Peers().get_peer(from_id)
+    display_name = peer.DISPLAY_NAME if peer else from_id
+    
+    Followers().add_follower(follower)
+    
+    print(f"User {display_name} has followed you")
