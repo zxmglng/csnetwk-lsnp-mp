@@ -15,9 +15,6 @@ class Followers:
             return
         self._initialized = True
         self.followers: List[Peer] = []  # store Peer instances
-
-    def reset_collection(self):
-        self.followers = []
     
     def add_follower(self, peer: Peer) -> bool:
         for i, f in enumerate(self.followers):
