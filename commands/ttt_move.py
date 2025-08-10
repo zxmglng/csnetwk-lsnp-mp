@@ -66,7 +66,6 @@ def run(args):
     raw_msg = Message.raw_message(message)
     UDPSocket().send(raw_msg, (target_peer.IP, config.PORT))
     vprint("SEND", f"Tic Tac Toe move to {opponent_id} — position {position}", sender_ip=target_peer.IP, msg_type="TICTACTOE_MOVE")
-
     print_board(game["board"])
 
     winner, winning_line = check_winner(game_id)

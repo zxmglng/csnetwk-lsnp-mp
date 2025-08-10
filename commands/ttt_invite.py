@@ -49,6 +49,7 @@ def run(args):
     raw_msg = Message.raw_message(message)
 
     UDPSocket().send(raw_msg, (target_peer.IP, config.PORT))
-    vprint("SEND", f"Tic Tac Toe invite to {target_user_id} — you are {symbol}", sender_ip=target_peer.IP, msg_type="TICTACTOE_INVITE")
-    print(f"[Invite sent] to {target_user_id} — you are {symbol}. GAMEID: {game_id}")
+    if vprint("SEND", f"Tic Tac Toe invite to {target_user_id} — you are {symbol}", sender_ip=target_peer.IP, msg_type="TICTACTOE_INVITE"):
+        print(f"[Invite sent] to {target_user_id} — you are {symbol}. GAMEID: {game_id}")
+
     print_board([" "] * 9)

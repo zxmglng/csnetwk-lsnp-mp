@@ -45,5 +45,5 @@ def run(args: list[str]):
     
     Following().remove_following(target_user_id)
     
-    vprint("SEND", f"UNFOLLOW to {target_user_id}", sender_ip=target_peer.IP, msg_type="UNFOLLOW")
-    print(f"[UNFOLLOW Sent] to {target_user_id}")
+    if vprint("SEND", f"UNFOLLOW to {target_user_id}", sender_ip=target_peer.IP, msg_type="UNFOLLOW"):
+        print(f"[UNFOLLOW Sent] to {target_user_id}")

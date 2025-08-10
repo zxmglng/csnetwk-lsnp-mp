@@ -9,7 +9,8 @@ def run(data: dict, sender_address: tuple):
         return
     
     peer = Peers().get_peer(from_id)
-    vprint("RECV", f"DM from {peer.DISPLAY_NAME} ({from_id}): {content}", sender_ip=sender_address[0], msg_type="DM")
-    print(f"{peer.DISPLAY_NAME}: {content}")
+    
+    if vprint("RECV", f"DM from {peer.DISPLAY_NAME} ({from_id}): {content}", sender_ip=sender_address[0], msg_type="DM"):
+        print(f"{peer.DISPLAY_NAME}: {content}")
     
 

@@ -2,9 +2,9 @@ import datetime
 import config
 
 def vprint(direction, msg, sender_ip=None, msg_type=None):
-    """Verbose print with timestamp, message type color coding, and optional sender info."""
+    #Verbose print with timestamp, message type color coding, and optional sender info.
     if not getattr(config, "VERBOSE", False):
-        return
+        return None
     
     ts = datetime.datetime.now().strftime("%H:%M:%S")
     

@@ -45,7 +45,7 @@ def run(args: list[str]):
     from udp_socket import UDPSocket
     UDPSocket().send(raw, (target_peer.IP, config.PORT))
     
-    vprint("SEND", f"DM to {target_user_id}: {content}", sender_ip=target_peer.IP, msg_type="DM")
-    print(f"[DM Sent] to {target_user_id}: {content}")
+    if vprint("SEND", f"DM to {target_user_id}: {content}", sender_ip=target_peer.IP, msg_type="DM"):
+        print(f"[DM Sent] to {target_user_id}: {content}")
     
     

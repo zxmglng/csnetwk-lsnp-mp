@@ -26,7 +26,7 @@ def main():
     
     while True:
         try:
-            user_input = input("> ").strip()
+            user_input = input(" ").strip()
             if user_input.lower() == "exit":
                 break
             if not user_input:

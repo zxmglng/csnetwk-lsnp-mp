@@ -45,5 +45,5 @@ def run(args: list[str]):
     
     Following().add_following(target_peer)
 
-    vprint("SEND", f"FOLLOW to {target_user_id}", sender_ip=target_peer.IP, msg_type="FOLLOW")
-    print(f"[FOLLOW Sent] to {target_user_id}")
+    if vprint("SEND", f"FOLLOW to {target_user_id}", sender_ip=target_peer.IP, msg_type="FOLLOW"):
+        print(f"[FOLLOW Sent] to {target_user_id}")
