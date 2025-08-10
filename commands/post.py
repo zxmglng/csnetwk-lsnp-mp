@@ -4,6 +4,7 @@ import config
 from views.message import Message
 from models.collections import my_profile
 from models.collections.followers import Followers
+from models.collections.my_posts import MyPosts
 
 def run(args: list[str]):
     if len(args) < 1:
@@ -46,4 +47,5 @@ def run(args: list[str]):
     for follower in followers:
         UDPSocket().send(raw, (follower.IP, config.PORT))
     
+    MyPosts().add_post(content, timestamp)
     print(f"[POST Sent] to {len(followers)} followers: \"{content}\"")
