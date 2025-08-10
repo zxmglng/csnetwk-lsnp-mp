@@ -9,8 +9,6 @@ def run(data: dict, sender_address: tuple):
     if not profile:
         return
     
-    user_id = data.get("USER_ID", "")
-    
     profile_dict = profile.to_message_dict()
     profile_message = Message.raw_message(profile_dict)
     UDPSocket().send(profile_message, (config.BROADCAST_ADDRESS, config.PORT))
