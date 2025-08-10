@@ -28,6 +28,8 @@ def run(data: dict, sender_address: tuple):
     if existing_group:
         return  # already have this group
     
-    new_group = Group(GROUP_ID=group_id, NAME=group_name, members=members)
+    new_group = Group(GROUP_ID=group_id, NAME=group_name, MEMBERS=members)
+    groups_collection.add_group(new_group)
     
     print("You've been added to \"{group_named}\"")
+ 
