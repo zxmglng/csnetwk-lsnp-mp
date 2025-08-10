@@ -1,11 +1,8 @@
-import time
 from typing import List
-from datetime import datetime, timedelta, timezone
 from models.dataclasses.peer import Peer
 
 class Peers:
     _instance = None
-    TTL = timedelta(minutes=5)
     
     def __new__(cls):
         if cls._instance is None:
@@ -19,6 +16,9 @@ class Peers:
         self._initialized = True
         self.peers: List[Peer] = []
 
+    def reset_collection(self):
+        self.peers = []
+    
     def add_peer(self, peer: Peer):
         for i, p in enumerate(self.peers):
             if p.USER_ID == peer.USER_ID:
@@ -34,13 +34,3 @@ class Peers:
 
     def all(self):
         return self.peers
-
-    def remove_expried_peers(self):
-        now = datetime.now(timezone.utc)
-        self.peers = [p for p in self.peers if now - p.created_at < self.TTL]
-
-    def start_auto_cleanup(self, interval_seconds: int = 10):
-        while True:
-            self.remove_expired_peers()
-            time.sleep(interval_seconds)
-            
