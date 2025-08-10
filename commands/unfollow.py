@@ -42,6 +42,6 @@ def run(args: list[str]):
     from udp_socket import UDPSocket
     UDPSocket().send(raw, (target_peer.IP, config.PORT))
     
-    Following().remove_following(target_peer)
+    Following().remove_following(target_user_id)
     
     print(f"[UNFOLLOW Sent] to {target_user_id}")
