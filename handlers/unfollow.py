@@ -9,7 +9,7 @@ def run(data: dict, sender_address: tuple):
         return  
     
     peer = Peers().get_peer(from_id)
-    
+
     Followers().remove_follower(from_id)
 
     if vprint("RECV", f"UNFOLLOW from {peer.DISPLAY_NAME} ({from_id})", sender_ip=sender_address[0], msg_type="UNFOLLOW"):

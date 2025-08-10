@@ -12,7 +12,6 @@ def run(data: dict, sender_address: tuple):
         return  
     
     user_ids = [uid.strip() for uid in members_str.split(",") if uid.strip()]
-    
     peers_collection = Peers()
 
     profile = my_profile.get_profile()
@@ -33,7 +32,7 @@ def run(data: dict, sender_address: tuple):
     existing_group = groups_collection.get_group(group_id)
     if existing_group:
         return  
-    
+        
     new_group = Group(GROUP_ID=group_id, GROUP_NAME=group_name, MEMBERS=members)
     groups_collection.add_group(new_group)
     

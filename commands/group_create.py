@@ -26,6 +26,10 @@ def run(args: list[str]):
     if not profile:
         return
     
+    profile = my_profile.get_profile()
+    if not profile:
+        return
+        
     peers_collection = Peers()
     members = [profile]
 
