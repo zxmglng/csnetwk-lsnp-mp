@@ -4,9 +4,14 @@ import config
 from views.message import Message
 from models.collections import my_profile
 from models.collections.peers import Peers
+from models.collections.following import Following
 
 def run(args: list[str]):
     if len(args) < 1:
+        following = Following().all()
+        following_ids = [peer.USER_ID for peer in following]
+        print("Following:", following_ids)
+        print("Usage: unfollow <target_user_id>")
         return  
     
     target_user_id = args[0]
@@ -36,5 +41,7 @@ def run(args: list[str]):
     
     from udp_socket import UDPSocket
     UDPSocket().send(raw, (target_peer.IP, config.PORT))
+    
+    Following().remove_following(target_peer)
     
     print(f"[UNFOLLOW Sent] to {target_user_id}")

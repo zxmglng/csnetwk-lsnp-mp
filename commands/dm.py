@@ -8,6 +8,10 @@ from models.collections.peers import Peers
 def run(args: list[str]):
     
     if len(args) < 2:
+        peers = Peers().all()
+        peer_ids = [peer.USER_ID for peer in peers]
+        print("Available peers:", peer_ids)
+        print("Usage: dm <target_user_id> <message>")
         return
     
     target_user_id = args[0]
