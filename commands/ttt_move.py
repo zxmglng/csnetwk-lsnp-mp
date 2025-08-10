@@ -1,24 +1,38 @@
 import time
-from udp_socket import UDPSocket
+import uuid
 import config
+from verbose import vprint
+from udp_socket import UDPSocket
 from models.collections import ttt_game
 from models.collections.ttt_game import check_winner
 from views.tictactoe import print_board
+from views.message import Message
+from models.collections.peers import Peers
+from models.collections import my_profile
 
-def run(args):
+def run(args: list[str]):
     if len(args) < 2:
         print("Usage: ttt_move <GAMEID> <POSITION>")
         return
 
     game_id = args[0]
-    position = int(args[1])
+    try:
+        position = int(args[1])
+    except ValueError:
+        print("Position must be an integer.")
+        return
+
+    profile = my_profile.get_profile()
+    if not profile:
+        return
+
     game = ttt_game.get_game(game_id)
     if not game:
         print("Game not found.")
         return
 
     # Determine my symbol
-    my_symbol = "X" if game["player_x"] == config.USERNAME else "O"
+    my_symbol = "X" if game["player_x"] == profile.USER_ID else "O"
 
     if game["turn"] != my_symbol:
         print("It's not your turn.")
@@ -28,25 +42,41 @@ def run(args):
         print("Invalid move.")
         return
 
-    message = (
-        f"TYPE: TICTACTOE_MOVE\n"
-        f"FROM: {config.USERNAME}@{config.CURRENT_IP}\n"
-        f"TO: {game['player_o']}@{config.CURRENT_IP if my_symbol=='X' else game['player_x']}\n"
-        f"GAMEID: {game_id}\n"
-        f"MESSAGE_ID: msg{int(time.time())}\n"
-        f"POSITION: {position}\n"
-        f"SYMBOL: {my_symbol}\n"
-        f"TURN: {position}\n"
-        f"TOKEN: {config.USERNAME}@{config.CURRENT_IP}|{int(time.time())+3600}|game"
-    )
+    now = int(time.time())
+    token_ttl = now + 3600
+    token = f"{profile.USER_ID}|{token_ttl}|game"
 
-    UDPSocket().send(message, (game["player_o"].split("@")[1] if my_symbol=="X" else game["player_x"].split("@")[1], config.PORT))
+    # Determine opponent ID and peer
+    opponent_id = game["player_o"] if my_symbol == "X" else game["player_x"]
+    target_peer = Peers().get_peer(opponent_id)
+    if not target_peer:
+        print("Opponent not found in peer list.")
+        return
+
+    message_dict = {
+        "TYPE": "TICTACTOE_MOVE",
+        "FROM": profile.USER_ID,
+        "TO": opponent_id,
+        "GAMEID": game_id,
+        "MESSAGE_ID": uuid.uuid4().hex[:8],
+        "POSITION": position,
+        "SYMBOL": my_symbol,
+        "TURN": my_symbol,
+        "TIMESTAMP": now,
+        "TOKEN": token
+    }
+
+    raw = Message.raw_message(message_dict)
+
+    # Send move
+    UDPSocket().send(raw, (target_peer.IP, config.PORT))
+    vprint("SEND", f"Tic Tac Toe move to {opponent_id} — position {position}", sender_ip=target_peer.IP, msg_type="TICTACTOE_MOVE")
     print_board(game["board"])
 
+    # Check winner
     winner, winning_line = check_winner(game_id)
     if winner:
         result = "DRAW" if winner == "DRAW" else ("WIN" if my_symbol == winner else "LOSS")
         print(f"Game Over! Result: {result}")
         if winning_line:
             print(f"Winning line: {winning_line}")
-        return
