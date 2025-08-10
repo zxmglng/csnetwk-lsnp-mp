@@ -1,66 +1,46 @@
-from typing import Optional, Tuple
+games = {}  # key: game_id
 
-games: dict[str, dict] = {}  # key: GAMEID
+WIN_LINES = [
+    (0,1,2), (3,4,5), (6,7,8),  # rows
+    (0,3,6), (1,4,7), (2,5,8),  # columns
+    (0,4,8), (2,4,6)            # diagonals
+]
 
-def create_game(game_id: str, player_x: str, player_o: str) -> None:
-    """Initialize a new Tic Tac Toe game."""
+def create_game(game_id, player_x, player_o):
     games[game_id] = {
         "board": [" "] * 9,
         "player_x": player_x,
         "player_o": player_o,
         "status": "IN_PROGRESS",
-        "turn": "X"  # X always starts
+        "turn": "X"
     }
 
-def make_move(game_id: str, position: int, symbol: str) -> bool:
-    """Place a move on the board if valid."""
+def make_move(game_id, pos, symbol):
     game = games.get(game_id)
-    if not game:
+    if not game or pos not in range(9) or game["board"][pos] != " ":
         return False
-    if position < 0 or position >= 9:
-        return False
-    if game["board"][position] != " ":
-        return False
-
-    game["board"][position] = symbol
+    game["board"][pos] = symbol
     game["turn"] = "O" if symbol == "X" else "X"
     return True
 
-def get_game(game_id: str) -> Optional[dict]:
-    """Retrieve the game state."""
+def get_game(game_id):
     return games.get(game_id)
 
-def set_result(game_id: str, result: str, winning_line: Optional[Tuple[int, int, int]] = None) -> None:
-    """Mark a game as finished with the result and optional winning line."""
+def set_result(game_id, result, winning_line=None):
     game = games.get(game_id)
     if game:
         game["status"] = "FINISHED"
         game["winner"] = result
         game["winning_line"] = winning_line
 
-WINNING_LINES: list[Tuple[int, int, int]] = [
-    (0, 1, 2),
-    (3, 4, 5),
-    (6, 7, 8),
-    (0, 3, 6),
-    (1, 4, 7),
-    (2, 5, 8),
-    (0, 4, 8),
-    (2, 4, 6),
-]
-
-def check_winner(game_id: str) -> Tuple[Optional[str], Optional[Tuple[int, int, int]]]:
-    """Check if there is a winner or if the game is a draw."""
+def check_winner(game_id):
     game = games.get(game_id)
     if not game:
         return None, None
-
     board = game["board"]
-    for a, b, c in WINNING_LINES:
+    for a,b,c in WIN_LINES:
         if board[a] != " " and board[a] == board[b] == board[c]:
-            return board[a], (a, b, c)
-
+            return board[a], (a,b,c)
     if " " not in board:
         return "DRAW", None
-
     return None, None

@@ -2,7 +2,7 @@ from models.collections import ttt_game
 from views.tictactoe import print_board
 from verbose import vprint
 
-def handle(message: dict):
+def handle(message):
     game_id = message.get("GAMEID")
     result = message.get("RESULT")
     winning_line = message.get("WINNING_LINE")

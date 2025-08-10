@@ -7,10 +7,10 @@ from models.collections.peers import Peers
 from views.message import Message
 from udp_socket import UDPSocket
 
-def run(args: list[str]):
-    if len(args) < 1:
+def run(args):
+    if not args:
         peers = Peers().all()
-        peer_ids = [peer.USER_ID for peer in peers]
+        peer_ids = [p.USER_ID for p in peers]
         print("Available peers:", peer_ids)
         print("Usage: ttt_invite <target_user_id>")
         return
@@ -18,23 +18,23 @@ def run(args: list[str]):
     target_user_id = args[0]
     profile = my_profile.get_profile()
     if not profile:
+        print("No profile found.")
         return
 
     target_peer = Peers().get_peer(target_user_id)
     if not target_peer:
+        print(f"Peer {target_user_id} not found.")
         return
 
-    symbol = "X"  # Inviter always starts as X
+    symbol = "X"  # Inviter always plays X
     now = int(time.time())
-    token_ttl = now + 3600
+    token_ttl = now + 3600  # token valid for 1 hour
 
-    # Create a new game
     game_id = f"g{len(ttt_game.games) % 256}"
     ttt_game.create_game(game_id, profile.USER_ID, target_user_id)
 
-    # Prepare token & message data
     token = f"{profile.USER_ID}|{token_ttl}|game"
-    message_dict = {
+    message = {
         "TYPE": "TICTACTOE_INVITE",
         "FROM": profile.USER_ID,
         "TO": target_user_id,
@@ -45,9 +45,8 @@ def run(args: list[str]):
         "TOKEN": token
     }
 
-    raw = Message.raw_message(message_dict)
+    raw_msg = Message.raw_message(message)
 
-    # Send invite
-    UDPSocket().send(raw, (target_peer.IP, config.PORT))
+    UDPSocket().send(raw_msg, (target_peer.IP, config.PORT))
     vprint("SEND", f"Tic Tac Toe invite to {target_user_id} — you are {symbol}", sender_ip=target_peer.IP, msg_type="TICTACTOE_INVITE")
-    print(f"[Tic Tac Toe Invite Sent] to {target_user_id} — you are {symbol}")
+    print(f"[Invite sent] to {target_user_id} — you are {symbol}")
