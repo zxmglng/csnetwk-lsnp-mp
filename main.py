@@ -3,8 +3,18 @@ from command_router import send
 import config
 from commands.ping import auto_ping_loop
 import threading
+import argparse
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="LSNP Client")
+    parser.add_argument("--verbose", action="store_true", help="Enable verbose logging")
+    return parser.parse_args()
     
 def main():
+
+    args = parse_args()
+    config.VERBOSE = args.verbose
+    print(f"Verbose mode: {config.VERBOSE}")
     
     config.USERNAME = input("Enter your username: ").strip()
     send("profile", [])
@@ -13,10 +23,10 @@ def main():
     
     udp = UDPSocket()
     udp.receive_loop()
-
+    
     while True:
         try:
-            user_input = input("> ").strip()
+            user_input = input(" ").strip()
             if user_input.lower() == "exit":
                 break
             if not user_input:

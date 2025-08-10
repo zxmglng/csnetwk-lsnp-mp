@@ -5,6 +5,7 @@ from views.message import Message
 from models.collections import my_profile
 from models.collections.peers import Peers
 from models.collections.following import Following
+from verbose import vprint
 
 def run(args: list[str]):
     if len(args) < 1:
@@ -44,4 +45,5 @@ def run(args: list[str]):
     
     Following().remove_following(target_user_id)
     
-    print(f"[UNFOLLOW Sent] to {target_user_id}")
+    if vprint("SEND", f"UNFOLLOW to {target_user_id}", sender_ip=target_peer.IP, msg_type="UNFOLLOW"):
+        print(f"[UNFOLLOW Sent] to {target_user_id}")

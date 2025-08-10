@@ -13,7 +13,7 @@ def run(data: dict, sender_address: tuple):
     
     user_ids = [uid.strip() for uid in members_str.split(",") if uid.strip()]
     peers_collection = Peers()
-    
+
     profile = my_profile.get_profile()
     if not profile:
         return

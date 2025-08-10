@@ -1,6 +1,5 @@
 from views.message import Message
-from handlers import profile, ping, dm, follow, unfollow, group_create, group_message, post, file_offer, file_chunk, file_received
-
+from handlers import profile, ping, dm, follow, unfollow, group_create, group_message, post, ttt_invite, ttt_move, ttt_result, file_offer, file_chunk, file_received
 
 class HandleMessage:
     def __init__(self):
@@ -13,6 +12,9 @@ class HandleMessage:
             "GROUP_CREATE": group_create.run,
             "GROUP_MESSAGE": group_message.run,
             "POST": post.run,
+            "TICTACTOE_INVITE": ttt_invite.handle,
+            "TICTACTOE_MOVE": ttt_move.handle,
+            "TICTACTOE_RESULT": ttt_result.handle,
             "FILE_OFFER": file_offer.run,
             "FILE_CHUNK": file_chunk.run,
             "FILE_RECEIVED": file_received.run

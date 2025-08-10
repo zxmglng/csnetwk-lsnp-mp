@@ -21,6 +21,10 @@ def run(args: list[str]):
     
     groups_collection = Groups()
     group_id = f"{group_name}_{uuid.uuid4().hex[:5]}"
+
+    profile = my_profile.get_profile()
+    if not profile:
+        return
     
     profile = my_profile.get_profile()
     if not profile:
@@ -28,7 +32,7 @@ def run(args: list[str]):
         
     peers_collection = Peers()
     members = [profile]
-    
+
     for user_id in user_ids:
         peer = peers_collection.get_peer(user_id)
         if peer:
