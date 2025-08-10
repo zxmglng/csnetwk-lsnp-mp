@@ -1,4 +1,4 @@
-from commands import profile, dm, follow, unfollow, group_create, group_message
+from commands import profile, dm, follow, unfollow, group_create, group_message, post
 
 COMMANDS = {
     "profile": profile.run,
@@ -6,7 +6,8 @@ COMMANDS = {
     "follow": follow.run,
     "unfollow": unfollow.run,
     "group_create": group_create.run,
-    "group_message": group_message.run
+    "group_message": group_message.run,
+    "post": post.run,
 }
 
 def send(command: str, args: list[str]):
