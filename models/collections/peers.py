@@ -20,7 +20,16 @@ class Peers:
         self.peers = []
     
     def add_peer(self, peer: Peer):
-        self.peers.append(peer)  
+        existing_peer = self.get_peer(peer.USER_ID)
+        if existing_peer:
+            existing_peer.DISPLAY_NAME = peer.DISPLAY_NAME
+            existing_peer.STATUS = peer.STATUS
+            existing_peer.AVATAR_TYPE = peer.AVATAR_TYPE
+            existing_peer.AVATAR_ENCODING = peer.AVATAR_ENCODING
+            existing_peer.AVATAR_DATA = peer.AVATAR_DATA
+            existing_peer.IP = peer.IP
+        else:
+            self.peers.append(peer)  
 
 
     def get_peer(self, user_id: str):
