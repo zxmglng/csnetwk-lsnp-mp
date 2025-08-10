@@ -16,8 +16,7 @@ def run(args: list[str]):
     user_ids = [uid.strip() for uid in user_ids_str.split(",") if uid.strip()]
     
     groups_collection = Groups()
-    group_count = len(groups_collection.all())
-    group_id = f"{group_name}{group_count + 1}"
+    group_id = f"{group_name}_{uuid.uuid4().hex[:5]}"
     
     peers_collection = Peers()
     members = []
