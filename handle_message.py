@@ -1,5 +1,5 @@
 from views.message import Message
-from handlers import profile, ping, dm, follow, unfollow, group_create, group_message, post
+from handlers import profile, ping, dm, follow, unfollow, group_create, group_message, post, ttt_invite, ttt_move, ttt_result
 
 class HandleMessage:
     def __init__(self):
@@ -11,7 +11,11 @@ class HandleMessage:
             "UNFOLLOW": unfollow.run,
             "GROUP_CREATE": group_create.run,
             "GROUP_MESSAGE": group_message.run,
-            "POST": post.run
+            "POST": post.run,
+            "TICTACTOE_INVITE": ttt_invite.handle,
+            "TICTACTOE_MOVE": ttt_move.handle,
+            "TICTACTOE_RESULT": ttt_result.handle,
+
         }
 
     def run(self, message: str, sender_address: tuple):
