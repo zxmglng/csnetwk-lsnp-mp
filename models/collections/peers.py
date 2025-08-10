@@ -20,13 +20,7 @@ class Peers:
         self.peers = []
     
     def add_peer(self, peer: Peer):
-        for i, p in enumerate(self.peers):
-            if p.USER_ID == peer.USER_ID:
-                self.peers[i] = peer  
-                return False  
-
         self.peers.append(peer)  
-        return True  
 
 
     def get_peer(self, user_id: str):

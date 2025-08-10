@@ -17,12 +17,7 @@ class Followers:
         self.followers: List[Peer] = []  # store Peer instances
     
     def add_follower(self, peer: Peer) -> bool:
-        for i, f in enumerate(self.followers):
-            if f.USER_ID == peer.USER_ID:
-                self.followers[i] = peer
-                return False  # Updated existing follower
         self.followers.append(peer)
-        return True  # Added new follower
 
     def remove_follower(self, user_id: str) -> bool:
         peer = self.get_follower(user_id)

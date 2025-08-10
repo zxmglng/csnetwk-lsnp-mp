@@ -1,4 +1,3 @@
-import time
 from models.collections.peers import Peers
 from models.collections.groups import Groups
 from models.dataclasses.group import Group
@@ -31,5 +30,5 @@ def run(data: dict, sender_address: tuple):
     new_group = Group(GROUP_ID=group_id, GROUP_NAME=group_name, MEMBERS=members)
     groups_collection.add_group(new_group)
     
-    print("You've been added to \"{group_name}\"")
+    print(f'You\'ve been added to "{group_name}"')
  

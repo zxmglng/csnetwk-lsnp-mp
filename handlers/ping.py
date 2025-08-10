@@ -10,7 +10,6 @@ def run(data: dict, sender_address: tuple):
         return
     
     user_id = data.get("USER_ID", "")
-    print(f"[PING Received] from {user_id}")
     
     profile_dict = profile.to_message_dict()
     profile_message = Message.raw_message(profile_dict)

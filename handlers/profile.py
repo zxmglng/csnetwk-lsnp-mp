@@ -12,9 +12,6 @@ def run(data: dict, sender_address: tuple):
         IP = sender_address[0]
     )
 
-    added = Peers().add_peer(peer)
+    Peers().add_peer(peer)
 
-    if added:
-        print(f"[Peer Added] {peer.USER_ID}")
-    else:
-        print(f"[Peer Updated] {peer.USER_ID}")
+    print("{peer.DISPLAY_NAME} {peer.STATUS}")
