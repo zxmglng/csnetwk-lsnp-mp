@@ -14,4 +14,4 @@ def run(data: dict, sender_address: tuple):
 
     Peers().add_peer(peer)
 
-    print("{peer.DISPLAY_NAME} {peer.STATUS}")
+    print(f"{peer.DISPLAY_NAME} {peer.STATUS}")

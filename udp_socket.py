@@ -38,8 +38,8 @@ class UDPSocket:
                     data, addr = self.socket.recvfrom(65535)
                     message = data.decode(self.encoding)
                     
-                    if addr[0] != config.CURRENT_IP:
-                        self.handler.run(message, addr)
+                    # if addr[0] != config.CURRENT_IP:
+                    self.handler.run(message, addr)
                     
                 except Exception as e:
                     print(f"Error in receive_loop: {e}")
