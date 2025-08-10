@@ -1,6 +1,7 @@
 import time
 import uuid
 import config
+from verbose import vprint
 from views.message import Message
 from models.collections import my_profile
 from models.collections.peers import Peers
@@ -43,4 +44,6 @@ def run(args: list[str]):
     UDPSocket().send(raw, (target_peer.IP, config.PORT))
     
     Following().add_following(target_peer)
+
+    vprint("SEND", f"FOLLOW to {target_user_id}", sender_ip=target_peer.IP, msg_type="FOLLOW")
     print(f"[FOLLOW Sent] to {target_user_id}")

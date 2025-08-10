@@ -1,6 +1,7 @@
 from models.collections.peers import Peers
 from models.collections.groups import Groups
 from models.dataclasses.group import Group
+from models.collections import my_profile
 
 def run(data: dict, sender_address: tuple):
     group_id = data.get("GROUP_ID", "")
@@ -13,12 +14,18 @@ def run(data: dict, sender_address: tuple):
     user_ids = [uid.strip() for uid in members_str.split(",") if uid.strip()]
     
     peers_collection = Peers()
-    members = []
+
+    profile = my_profile.get_profile()
+    if not profile:
+        return
+    
+    members = [profile]
     for user_id in user_ids:
         peer = peers_collection.get_peer(user_id)
         if peer:
             members.append(peer)
     
+    print(members)
     if not members:
         return  
     

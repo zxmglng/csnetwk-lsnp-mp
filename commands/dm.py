@@ -1,6 +1,7 @@
 import time
 import uuid
 import config
+from verbose import vprint
 from views.message import Message
 from models.collections import my_profile
 from models.collections.peers import Peers
@@ -44,5 +45,7 @@ def run(args: list[str]):
     from udp_socket import UDPSocket
     UDPSocket().send(raw, (target_peer.IP, config.PORT))
     
+    vprint("SEND", f"DM to {target_user_id}: {content}", sender_ip=target_peer.IP, msg_type="DM")
     print(f"[DM Sent] to {target_user_id}: {content}")
+    
     

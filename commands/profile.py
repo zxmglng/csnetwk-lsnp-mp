@@ -11,7 +11,8 @@ def run(args = None):
     profile = Peer(
         USER_ID = f"{config.USERNAME}@{config.CURRENT_IP}",
         DISPLAY_NAME = display_name,
-        STATUS = status
+        STATUS = status,
+        IP = config.CURRENT_IP
     )
     
     my_profile.set_profile(profile)
