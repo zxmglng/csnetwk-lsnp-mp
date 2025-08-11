@@ -53,4 +53,4 @@ def run(args: list[str]):
     MyPosts().add_post(content, timestamp)
     
     if printed:
-        print(f"[POST Sent] to {len(followers)} followers: \"{content}\"")
+        print(f"[POST Sent] to {len(followers)} followers: \"{content}\". Timestamp : {timestamp}")
