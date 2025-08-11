@@ -21,10 +21,6 @@ def run(args: list[str]):
     
     groups_collection = Groups()
     group_id = f"{group_name}_{uuid.uuid4().hex[:5]}"
-
-    profile = my_profile.get_profile()
-    if not profile:
-        return
     
     profile = my_profile.get_profile()
     if not profile:
@@ -32,7 +28,7 @@ def run(args: list[str]):
         
     peers_collection = Peers()
     members = [profile]
-
+    
     for user_id in user_ids:
         peer = peers_collection.get_peer(user_id)
         if peer:
@@ -54,7 +50,6 @@ def run(args: list[str]):
 
         message_dict = {
             "TYPE": "GROUP_CREATE",
-            "MESSAGE_ID": uuid.uuid4().hex[:8],
             "FROM": profile.USER_ID,
             "GROUP_ID": group_id,
             "GROUP_NAME": group_name,
@@ -69,4 +64,4 @@ def run(args: list[str]):
         for peer in members:
             UDPSocket().send(raw, (peer.IP, config.PORT))
         
-        print(f"[GROUP_CREATE Sent] to members: {members_str}")
+        print("You’ve been added to", group_name)
