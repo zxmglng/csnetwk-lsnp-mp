@@ -88,24 +88,23 @@ We used **ChatGPT** and **BLACKBOX** throughout the making of this project to he
 csnetwk-lsnp-mp/
 │
 ├── commands/                     # Command interpreter and input routing
-│   └── command_router.py
+│   └── (command files)           # Handles user command parsing and dispatching
 │
-├── controllers/                  # Handles logic like messaging and group actions
-│   ├── group_controller.py
-│   └── base_controller.py
+├── handlers/                     # Message type handlers (profile, ping, dm, post, etc.)
+│   └── (individual message handlers)
 │
-├── logs/                         # Output logs
-│   └── verbose-output.txt
+├── models/                       # Data models 
+│   └── (model files)
 │
-├── models/                       # Data models (Group, Token, etc.)
-│   └── group.py
+├── views/                        # CLI output formatting and display helpers
+│   └── (view helper files)
 │
-├── views/                        # CLI output formatting
-│   └── cli_view.py
-│
-├── README.md                     # Project overview and structure explanation
-│
-├── client.py                     # Runs the LSNP peer (send/receive over UDP)
-│
-└── main.py                       # Entry point: sets up args, threads, starts LSNP
+├── verbose.py                   # Optional logging/verbose output utility
+├── config.py                    # Configuration variables and constants
+├── handle_message.py            # Central message parsing and routing logic
+├── main.py                      # Entry point: sets up args, initializes, runs main loop
+├── udp_socket.py                # UDP socket abstraction (send/receive)
+├── command_router.py            # Main command routing logic (moved under commands/ in old version)
+├── README.md                    # Project overview and setup instructions
+
 
