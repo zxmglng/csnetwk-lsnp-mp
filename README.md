@@ -84,12 +84,20 @@ We used **ChatGPT** and **BLACKBOX** throughout the making of this project to he
 ## 📐 Build & Run Instructions
 
 ```bash
-# Clone the repo if not yet cloned:
-git clone https://github.com/zxmglng/csnetwk-lsnp-mp.git
-cd csnetwk-lsnp-mp
+# Install Python 3.10+
 
-# Run the LSNP Python program (replace with your IPs and user info):
+Download and install Python 3.10 or higher from the official site:
+https://www.python.org/downloads/
+
+# Verify installation:
+python --version
+
+# Run the LSNP program (replace with your IPs and user info):
 py main.py
+
+# Notes:
+# The program uses custom message parsers and token validators as specified in the project.
+# Make sure firewall or VPNs do not block UDP port 50999 for proper network communication.
 
 ```
 
