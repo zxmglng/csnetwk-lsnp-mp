@@ -26,6 +26,7 @@ def run(args: list[str]):
 
     group = Groups().get_group(group_id)
     if not group:
+        print(f"Group {group_id} not found.")
         return
     
     timestamp = int(time.time())
@@ -34,11 +35,11 @@ def run(args: list[str]):
 
     message_dict = {
         "TYPE": "GROUP_MESSAGE",
-        "MESSAGE_ID": uuid.uuid4().hex[:8],
         "FROM": profile.USER_ID,
         "GROUP_ID": group_id,
         "CONTENT": content,
         "TIMESTAMP": timestamp,
+        "MESSAGE_ID": uuid.uuid4().hex[:8],
         "TOKEN": token
     }
 
@@ -48,4 +49,4 @@ def run(args: list[str]):
         if member.USER_ID != profile.USER_ID:
             UDPSocket().send(raw, (member.IP, config.PORT))
 
-    print(f"[GROUP_MESSAGE Sent] to group {group.GROUP_NAME} ({group_id}): {content}")
+    print(f"{profile.USER_ID} sent “{content}”")
