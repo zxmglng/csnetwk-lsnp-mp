@@ -82,6 +82,23 @@ We used **ChatGPT** and **BLACKBOX** throughout the making of this project to he
 
 ---
 
+## 📐 Build & Run Instructions
+
+```bash
+# Clone the repo if not yet cloned:
+git clone https://github.com/zxmglng/csnetwk-lsnp-mp.git
+cd csnetwk-lsnp-mp
+
+# (Optional) Install dependencies if requirements.txt exists:
+pip install -r requirements.txt
+
+# Run the LSNP Python program (replace with your IPs and user info):
+py main.py
+
+```
+
+---
+
 ## 🗂️ MVC
 
 ```bash
