@@ -15,7 +15,6 @@ This is our implementation of **LSNP** using **Python**, for our CSNETWK machine
 - **Python 3.10+**
 - Modules: `socket`, `threading`, `argparse`, `time`, `base64`, `os`, `uuid`
 - Custom-built message parsers and token validators
-- Optional: `colorama` for verbose CLI output
 
 ---
 
