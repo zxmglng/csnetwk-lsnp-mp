@@ -84,16 +84,22 @@ We used **ChatGPT** and **BLACKBOX** throughout the making of this project to he
 ## 📐 Build & Run Instructions
 
 ```bash
-# Install Python 3.10+
+#1 Install Python 3.10+
 
 Download and install Python 3.10 or higher from the official site:
 https://www.python.org/downloads/
 
-# Verify installation:
+#2 Verify installation:
 python --version
 
-# Run the LSNP program (replace with your IPs and user info):
+#3 Download or clone the entire repository/source files to your machine
+
+#4 Open your command prompt and navigate to the directory where the files are saved, for example:
+cd path/to/your/project-directory
+
+#5 Run the LSNP program (replace with your IPs and user info):
 py main.py
+
 
 # Notes:
 # The program uses custom message parsers and token validators as specified in the project.
