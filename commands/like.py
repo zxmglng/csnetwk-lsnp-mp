@@ -22,7 +22,7 @@ def run(args: list[str]):
             for post in posts:
                 ts = post["timestamp"]
                 content = post.get("content", "")
-                print(f"  Timestamp: {ts.isoformat()}, Content: \"{content}\"")
+                print(f"  Timestamp: {ts()}, Content: \"{content}\"")
         return
 
     user_id = args[0]
