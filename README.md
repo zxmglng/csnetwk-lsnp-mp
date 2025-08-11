@@ -84,9 +84,7 @@ We used **ChatGPT** and **BLACKBOX** throughout the making of this project to he
 ## 📐 Build & Run Instructions
 
 ```bash
-#1 Install Python 3.10+
-
-Download and install Python 3.10 or higher from the official site:
+#1 Install Python 3.10+ from their official site:
 https://www.python.org/downloads/
 
 #2 Verify installation:
