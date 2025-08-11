@@ -5,6 +5,7 @@ import base64
 import time
 from pathlib import Path
 import config
+from verbose import vprint
 
 CHUNK_SIZE = 1024  # bytes
 
@@ -43,7 +44,9 @@ def run(args: list):
     }
     raw_offer = Message.raw_message(offer)
     UDPSocket().send(raw_offer, (receiver_ip, config.PORT))
-    print(f"[send_file] Offered {file_path.name} ({len(data)} bytes) in {total_chunks} chunks")
+
+    if vprint("SEND",f"FILE_OFFER sent to {receiver_ip}: {file_path.name} ({len(data)} bytes), {total_chunks} chunks", sender_ip=receiver_ip, msg_type="FILE_OFFER"):
+        print(f"[send_file] Offered {file_path.name} ({len(data)} bytes) in {total_chunks} chunks")
 
     # 2) Send FILE_CHUNKs
     for idx in range(total_chunks):
@@ -57,4 +60,6 @@ def run(args: list):
         }
         raw_msg = Message.raw_message(msg)
         UDPSocket().send(raw_msg, (receiver_ip, config.PORT))
-        print(f"[send_file] Sent chunk {idx+1}/{total_chunks}")
+
+        if vprint("SEND", f"FILE_CHUNK {idx+1}/{total_chunks} sent to {receiver_ip} for FILE_ID {file_id}", sender_ip=receiver_ip, msg_type="FILE_CHUNK"):
+            print(f"[send_file] Sent chunk {idx+1}/{total_chunks}")

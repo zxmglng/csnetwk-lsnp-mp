@@ -2,6 +2,7 @@ from models.collections.peers import Peers
 from models.collections.groups import Groups
 from models.dataclasses.group import Group
 from models.collections import my_profile
+from verbose import vprint
 
 def run(data: dict, sender_address: tuple):
     group_id = data.get("GROUP_ID", "")
@@ -36,5 +37,6 @@ def run(data: dict, sender_address: tuple):
     new_group = Group(GROUP_ID=group_id, GROUP_NAME=group_name, MEMBERS=members)
     groups_collection.add_group(new_group)
     
-    print(f'You\'ve been added to "{group_name}"')
+    if vprint("RECV", f'Added to group "{group_name}" (ID: {group_id}) with members: {[p.USER_ID for p in members]}', sender_ip=sender_address[0], msg_type="GROUP_CREATE"):
+        print(f'You\'ve been added to "{group_name}"')
  

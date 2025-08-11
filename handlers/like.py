@@ -17,4 +17,5 @@ def run(data: dict, sender_address: tuple):
     if not post:
         return
 
-    print(f"{follower.DISPLAY_NAME} likes your post [{post.content}]")
+    if vprint("RECV", f"{follower.DISPLAY_NAME} likes your post [{post.content}]", sender_ip=sender_address[0], msg_type="LIKE"):
+        print(f"{follower.DISPLAY_NAME} likes your post [{post.content}]")

@@ -1,6 +1,7 @@
 import time
 import uuid
 import config
+from verbose import vprint
 from views.message import Message
 from models.collections import my_profile
 from models.collections.peers import Peers
@@ -40,7 +41,8 @@ def run(args: list[str]):
     new_group = Group(GROUP_ID=group_id, GROUP_NAME=group_name, MEMBERS=members)
 
     if groups_collection.add_group(new_group):
-        print(f"[GROUP CREATED] {group_name} with ID {group_id} and members: {[p.USER_ID for p in members]}")
+        if vprint("SEND", f"[GROUP CREATED] {group_name} with ID {group_id} and members: {[p.USER_ID for p in members]}", msg_type="GROUP_CREATE"):
+            print(f"[GROUP CREATED] {group_name} with ID {group_id} and members: {[p.USER_ID for p in members]}")
         
         timestamp = int(time.time())
         token_ttl = timestamp + 3600

@@ -1,6 +1,7 @@
 import time
 import uuid
 import config
+from verbose import vprint
 from views.message import Message
 from models.collections import my_profile
 from models.collections.peers import Peers
@@ -49,4 +50,5 @@ def run(args: list[str]):
         if member.USER_ID != profile.USER_ID:
             UDPSocket().send(raw, (member.IP, config.PORT))
 
-    print(f"{profile.USER_ID} sent “{content}”")
+    if vprint("SEND", f"GROUP_MESSAGE sent to {member.USER_ID} ({member.IP}) in group {group_id}: {content}", sender_ip=member.IP, msg_type="GROUP_MESSAGE"):
+        print(f"{profile.USER_ID} sent “{content}”")

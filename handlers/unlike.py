@@ -1,5 +1,6 @@
 from models.collections.followers import Followers
 from models.collections.my_posts import MyPosts  
+from verbose import vprint
 
 def run(data: dict, sender_address: tuple):
     unliker_id = data.get("FROM", "")
@@ -16,4 +17,5 @@ def run(data: dict, sender_address: tuple):
     if not post:
         return
 
-    print(f"{follower.DISPLAY_NAME} unliked your post [{post.content}]")
+    if vprint("RECV", f"{follower.DISPLAY_NAME} unliked your post [{post.content}]", sender_ip=sender_address[0], msg_type="UNLIKE"):
+        print(f"{follower.DISPLAY_NAME} unliked your post [{post.content}]")

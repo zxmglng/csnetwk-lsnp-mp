@@ -1,5 +1,6 @@
 from models.dataclasses.peer import Peer
 from models.collections.peers import Peers
+from verbose import vprint
 
 def run(data: dict, sender_address: tuple):
     peer = Peer(
@@ -14,4 +15,5 @@ def run(data: dict, sender_address: tuple):
 
     Peers().add_peer(peer)
 
-    print(f"{peer.DISPLAY_NAME} {peer.STATUS}")
+    if vprint("RECV", f"{peer.DISPLAY_NAME} {peer.STATUS}", sender_ip=sender_address[0], msg_type="PROFILE"):
+        print(f"{peer.DISPLAY_NAME} {peer.STATUS}")

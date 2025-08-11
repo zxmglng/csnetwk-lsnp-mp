@@ -14,18 +14,10 @@ def vprint(direction, msg, sender_ip=None, msg_type=None):
         "RECV": "\033[92m",   # Green
     }
     
-    # Message-type-based colors
-    type_colors = {
-        "FOLLOW": "\033[93m",    # Yellow
-        "UNFOLLOW": "\033[91m",  # Red
-        "DM": "\033[96m",        # Cyan
-        "PING": "\033[95m",      # Magenta
-    }
-    
     RESET = "\033[0m"
     
-    # Pick message type color if available, otherwise use direction color
-    color = type_colors.get(msg_type, dir_colors.get(direction, ""))
+    # Use only direction color
+    color = dir_colors.get(direction, "")
     
     prefix = f"{color}{direction:>5} {ts}{RESET}"
     ip_info = f"[{sender_ip}]" if sender_ip else ""

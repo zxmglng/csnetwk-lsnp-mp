@@ -1,5 +1,6 @@
 import time
 import datetime
+from verbose import vprint
 from views.message import Message
 from models.collections import my_profile
 from models.collections.following import Following
@@ -61,4 +62,5 @@ def run(args: list[str]):
     raw = Message.raw_message(message_dict)
     UDPSocket().send(raw, (to_peer.IP, config.PORT))
 
-    print(f"Sent LIKE for post from {user_id} at {post_timestamp_str} to {to_peer.USER_ID}")
+    if vprint("SEND", f"LIKE message sent to {to_peer.USER_ID} ({to_peer.IP}) for post at {post_timestamp_str}", sender_ip=to_peer.IP, msg_type="LIKE"):
+        print(f"Sent LIKE for post from {user_id} at {post_timestamp_str} to {to_peer.USER_ID}")

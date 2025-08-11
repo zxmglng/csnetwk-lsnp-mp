@@ -4,6 +4,7 @@ from models.collections import my_profile
 from models.collections.following import Following
 import config
 from udp_socket import UDPSocket
+from verbose import vprint
 
 def run(args: list[str]):
     following_collection = Following()
@@ -60,4 +61,5 @@ def run(args: list[str]):
     raw = Message.raw_message(message_dict)
     UDPSocket().send(raw, (to_peer.IP, config.PORT))
 
-    print(f"Sent UNLIKE for post from {user_id} at timestamp {post_timestamp} to {to_peer.USER_ID}")
+    if vprint("SEND", f"UNLIKE message sent to {to_peer.USER_ID} ({to_peer.IP}) for post at timestamp {post_timestamp}", sender_ip=to_peer.IP, msg_type="UNLIKE"):
+        print(f"Sent UNLIKE for post from {user_id} at timestamp {post_timestamp} to {to_peer.USER_ID}")

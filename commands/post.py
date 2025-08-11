@@ -1,6 +1,7 @@
 import time
 import uuid
 import config
+from verbose import vprint
 from views.message import Message
 from models.collections import my_profile
 from models.collections.followers import Followers
@@ -46,6 +47,10 @@ def run(args: list[str]):
     
     for follower in followers:
         UDPSocket().send(raw, (follower.IP, config.PORT))
+        if vprint("SEND", f"POST sent to {follower.USER_ID} ({follower.IP}): \"{content}\"", sender_ip=follower.IP, msg_type="POST"):
+            printed = True
     
     MyPosts().add_post(content, timestamp)
-    print(f"[POST Sent] to {len(followers)} followers: \"{content}\"")
+    
+    if printed:
+        print(f"[POST Sent] to {len(followers)} followers: \"{content}\"")
