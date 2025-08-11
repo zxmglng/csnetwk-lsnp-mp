@@ -26,3 +26,22 @@ class Group:
 
     def all(self) -> List[Peer]:
         return self.MEMBERS
+
+    def update_members(self, add: List[str], remove: List[str]) -> tuple[List[str], List[str]]:
+        """Update members by adding and removing specified user IDs.
+        
+        Returns a tuple of lists: (added, removed).
+        """
+        added = []
+        removed = []
+
+        for user_id in add:
+            peer = Peer(user_id)  
+            if self.add_member(peer):
+                added.append(user_id)
+
+        for user_id in remove:
+            if self.remove_member(user_id):
+                removed.append(user_id)
+
+        return added, removed
