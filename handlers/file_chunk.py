@@ -1,5 +1,4 @@
 import base64
-from udp_socket import UDPSocket
 from views.message import Message
 from models.collections import my_profile
 import os
@@ -28,6 +27,7 @@ def run(data: dict, sender_address: tuple):
             _assemble_file(file_id, sender_address)
 
 def _assemble_file(file_id, sender_address):
+    from udp_socket import UDPSocket
     meta = _sessions[file_id]["meta"]
     total = int(meta["CHUNKS"])
     filename = meta["FILENAME"]
