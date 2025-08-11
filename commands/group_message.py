@@ -1,52 +1,42 @@
+from models.collections import my_profile
+from models.collections.groups import Groups
+from views.message import Message
+from udp_socket import UDPSocket
+import config
 import time
 import uuid
-import config
-from views.message import Message
-from models.collections import my_profile
-from models.collections.peers import Peers
-from models.collections.groups import Groups
 
 def run(args: list[str]):
+    """Send a message to a group"""
     if len(args) < 2:
-        groups_collection = Groups()
-        group_ids = [group.GROUP_ID for group in groups_collection.all()]
-        print("Available groups:", group_ids)
-        print("Usage: group_message <group_id> <message content>")
+        print("Usage: group_message <group_id> <message>")
         return
 
     group_id = args[0]
-    content = " ".join(args[1:]).strip()
-    
-    if not content:
-        return
-    
+    content = " ".join(args[1:])
     profile = my_profile.get_profile()
-    if not profile:
+    
+    if not profile or not content:
         return
 
     group = Groups().get_group(group_id)
-    if not group:
-        print(f"Group {group_id} not found.")
+    if not group or not any(m.USER_ID == profile.USER_ID for m in group.MEMBERS):
+        print("Error: Not a group member")
         return
-    
-    timestamp = int(time.time())
-    token_ttl = timestamp + 3600
-    token = f"{profile.USER_ID}|{token_ttl}|group"
 
     message_dict = {
         "TYPE": "GROUP_MESSAGE",
         "FROM": profile.USER_ID,
         "GROUP_ID": group_id,
         "CONTENT": content,
-        "TIMESTAMP": timestamp,
+        "TIMESTAMP": int(time.time()),
         "MESSAGE_ID": uuid.uuid4().hex[:8],
-        "TOKEN": token
+        "TOKEN": f"{profile.USER_ID}|{int(time.time()) + 3600}|group"
     }
 
     raw = Message.raw_message(message_dict)
-    from udp_socket import UDPSocket
     for member in group.MEMBERS:
         if member.USER_ID != profile.USER_ID:
             UDPSocket().send(raw, (member.IP, config.PORT))
 
-    print(f"{profile.USER_ID} sent “{content}”")
+    print(f"You sent to group {group_id}: {content}")
